@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "mcf-easyfeed",
+  "version": "${version}",
+  "name": "Easy Feed and Breed",
+  "description": "MaxVar Easy Feed and Breed for fabric - Throw food at animals to feed them and breed them",
+  "authors": [
+    "max@maxvar.ru"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/maxvar-easyfeed",
+    "sources": "https://github.com/maxvar/mcf-easyfeed"
+  },
+  "license": "DWTFUW",
+  "icon": "assets/mcf-easyfeed/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ru.maxvar.mcf.easyfeed.Mod"
+    ]
+  },
+  "mixins": [
+    "mcf-easyfeed.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.1",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
