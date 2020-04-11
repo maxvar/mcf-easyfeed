@@ -15,4 +15,6 @@ Going through Goals code for different animals I found out that Foxes and Pandas
 
 #### Change history
 
+1.0.1 removed output to stdout in the handler, bumped up deps' versions
+
 1.0.0 first version

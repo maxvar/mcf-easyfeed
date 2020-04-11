@@ -63,7 +63,6 @@ public class EatTreatsGoal extends Goal {
         if (!entities.isEmpty()) {
             for (ItemEntity itemEntity : entities)
                 targetItemEntity = itemEntity;
-            System.out.println("canStart" + animal.getUuid());
             return true;
         }
         return false;
@@ -76,7 +75,6 @@ public class EatTreatsGoal extends Goal {
 
     @Override
     public void tick() {
-        System.out.println("tick" + animal.getUuid());
         if (targetItemEntity != null && animal.canEat()) {
             feedAnimal(animal);
             targetItemEntity = null;

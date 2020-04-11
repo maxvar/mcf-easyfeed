@@ -8,6 +8,6 @@ public class Mod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        System.out.println(MOD_ID + " init done!");
+        System.out.println(MOD_ID + " init!");
     }
 }
