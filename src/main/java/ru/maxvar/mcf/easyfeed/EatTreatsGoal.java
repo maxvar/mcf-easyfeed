@@ -3,6 +3,8 @@ package ru.maxvar.mcf.easyfeed;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.*;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class EatTreatsGoal extends Goal {
     /**
      * Somehow it Knows about the weight for Tempt Goal or Mate Goal of all animals and
      * recommends the weight for Eat Treats Goal (== tempt goal or mate goal +1)
+     *
      * @param entity an [animal] entity
      * @return recommended weight
      */
@@ -58,7 +61,10 @@ public class EatTreatsGoal extends Goal {
         //if the animal can eat and it's standing exactly in pos with its breeding item
         if (!animal.canEat()) return false;
         World world = animal.world;
-        List<ItemEntity> entities = world.getEntities(ItemEntity.class, animal.getBoundingBox(),
+        Vec3d pos = animal.getPos();
+        Box attentionBox = new Box(pos.getX() - 1, pos.getY() - 1, pos.getZ() - 1,
+                pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
+        List<ItemEntity> entities = world.getEntities(ItemEntity.class, attentionBox,
                 itemEntity -> animal.isBreedingItem(itemEntity.getStack()));
         if (!entities.isEmpty()) {
             for (ItemEntity itemEntity : entities)
@@ -82,21 +88,28 @@ public class EatTreatsGoal extends Goal {
     }
 
     private void feedAnimal(AnimalEntity mob) {
-        if (!mob.world.isClient && mob.getBreedingAge() == 0 && mob.canEat()) {
-            eat(targetItemEntity);
-            mob.lovePlayer(null);
-            return;
-        }
+        if (!mob.world.isClient) {
+            if (mob.getBreedingAge() == 0 && mob.canEat()) {
+                if (eat(targetItemEntity))
+                    mob.lovePlayer(null);
+                targetItemEntity = null;
+                return;
+            }
 
-        if (mob.isBaby()) {
-            eat(targetItemEntity);
-            mob.growUp((int) ((float) (-mob.getBreedingAge() / 20) * 0.1F), true);
-            return;
+            if (mob.isBaby()) {
+                if (eat(targetItemEntity))
+                    mob.growUp((int) ((float) (-mob.getBreedingAge() / 20) * 0.1F), true);
+                targetItemEntity = null;
+                return;
+            }
         }
     }
 
-    private void eat(ItemEntity targetItemEntity) {
-        targetItemEntity.getStack().decrement(1);
+    private boolean eat(ItemEntity targetItemEntity) {
+        if (!targetItemEntity.getStack().isEmpty()) {
+            targetItemEntity.getStack().decrement(1);
+            return true;
+        }
+        return false;
     }
-
 }
