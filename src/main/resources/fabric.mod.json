@@ -23,9 +23,9 @@
     "mcf-easyfeed.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.7.1",
+    "fabricloader": ">=0.8.2",
     "fabric": "*",
-    "minecraft": "1.15.x"
+    "minecraft": "1.16.x"
   },
   "suggests": {
     "flamingo": "*"
