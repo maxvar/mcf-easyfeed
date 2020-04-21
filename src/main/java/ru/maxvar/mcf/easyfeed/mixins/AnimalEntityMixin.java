@@ -16,10 +16,12 @@ public abstract class AnimalEntityMixin extends PassiveEntity {
     @SuppressWarnings("FieldCanBeLocal")
     private EatTreatsGoal eatTreatsGoal;
 
+    @SuppressWarnings("unused")
     protected AnimalEntityMixin(EntityType<? extends PassiveEntity> type, World world) {
         super(type, world);
     }
 
+    @SuppressWarnings("unused")
     @Inject(method = "<init>*", at = @At("RETURN"))
     public void onConstructed(CallbackInfo ci) {
         this.eatTreatsGoal = new EatTreatsGoal(this);

@@ -14,6 +14,7 @@ public class EatTreatsGoal extends Goal {
     private final AnimalEntity animal;
     private ItemEntity targetItemEntity;
 
+    @SuppressWarnings("unused")
     public EatTreatsGoal(PassiveEntity animal) {
         if (animal instanceof AnimalEntity)
             this.animal = (AnimalEntity) animal;
@@ -100,7 +101,6 @@ public class EatTreatsGoal extends Goal {
                 if (eat(targetItemEntity))
                     mob.growUp((int) ((float) (-mob.getBreedingAge() / 20) * 0.1F), true);
                 targetItemEntity = null;
-                return;
             }
         }
     }
