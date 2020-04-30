@@ -5,7 +5,14 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "CatEntityMixin",
-    "ChickenEntityMixin"
+    "ChickenEntityMixin",
+    "CowEntityMixin",
+    "OcelotEntityMixin",
+    "PigEntityMixin",
+    "RabbitEntityMixin",
+    "SheepEntityMixin",
+    "TurtleEntityMixin",
+    "WolfEntityMixin"
   ],
   "client": [
   ],
