@@ -26,41 +26,6 @@ public class EatTreatsGoal extends Goal {
         return animal.getBreedingAge() == 0 && animal.canEat();
     }
 
-    /**
-     * Somehow it Knows about the weight for Tempt Goal or Mate Goal of all animals and
-     * recommends the weight for Eat Treats Goal (== tempt goal or mate goal +1)
-     *
-     * @param entity an [animal] entity
-     * @return recommended weight
-     */
-    public static int getWeight(PassiveEntity entity) {
-        if (entity instanceof BeeEntity)
-            return 3;
-        if (entity instanceof CatEntity)
-            return 3;
-        if (entity instanceof ChickenEntity)
-            return 3;
-        if (entity instanceof CowEntity)
-            return 3;
-        if (entity instanceof LlamaEntity)
-            return 5;
-        if (entity instanceof HorseBaseEntity)
-            return 3;
-        if (entity instanceof OcelotEntity)
-            return 9;
-        if (entity instanceof PigEntity)
-            return 4;
-        if (entity instanceof RabbitEntity)
-            return 3;
-        if (entity instanceof SheepEntity)
-            return 3;
-        if (entity instanceof TurtleEntity)
-            return 2;
-        if (entity instanceof WolfEntity)
-            return 9;
-        return 4; //better than nothing
-    }
-
     @Override
     public boolean canStart() {
         //if the animal can't eat then return immediately
