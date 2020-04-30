@@ -3,23 +3,27 @@ package ru.maxvar.mcf.easyfeed;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.*;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
+import java.util.EnumSet;
 import java.util.List;
 
 public class EatTreatsGoal extends Goal {
 
     private final AnimalEntity animal;
-    private ItemEntity targetItemEntity;
+    private ItemEntity targetFood;
+    private Double range;
+    private Double speed;
 
     @SuppressWarnings("unused")
-    public EatTreatsGoal(PassiveEntity animal) {
-        if (animal instanceof AnimalEntity)
-            this.animal = (AnimalEntity) animal;
-        else
-            throw new IllegalArgumentException("argument got EatTreatsGoal is not an AnimalEntity");
+    public EatTreatsGoal(AnimalEntity animal, double range, double speed) {
+        this.animal = animal;
+        this.range = range;
+        this.speed = speed;
+        this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
+    }
+
+    private boolean isEager(AnimalEntity animal) {
+        return animal.getBreedingAge() == 0 && animal.canEat();
     }
 
     /**
@@ -60,51 +64,49 @@ public class EatTreatsGoal extends Goal {
     @Override
     public boolean canStart() {
         //if the animal can't eat then return immediately
-        if (!animal.canEat()) return false;
-        //find if any suitable food is around
-        World world = animal.world;
-        Vec3d pos = animal.getPos();
-        Box attentionBox = new Box(pos.getX() - 1, pos.getY() - 1, pos.getZ() - 1,
-                pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
-        List<ItemEntity> entities = world.getEntities(ItemEntity.class, attentionBox,
-                itemEntity -> animal.isBreedingItem(itemEntity.getStack()));
+        if (!isEager(animal)) return false;
+        targetFood = findClosestFood();
+        return targetFood != null;
+    }
 
-        if (!entities.isEmpty()) {
-            for (ItemEntity itemEntity : entities) {
-                //choose the first suitable stack as target
-                targetItemEntity = itemEntity;
-                return true;
+    private ItemEntity findClosestFood() {
+        //find if any suitable food is around
+        List<ItemEntity> entities = animal.world.getEntities(
+                ItemEntity.class, animal.getBoundingBox().expand(range),
+                itemEntity -> animal.isBreedingItem(itemEntity.getStack()));
+        ItemEntity food = null;
+        double closedSquaredDistance = range * range;
+        for (ItemEntity itemEntity : entities) {
+            //choose the closest suitable stack as target
+            double distance = animal.squaredDistanceTo(itemEntity);
+            if (distance < closedSquaredDistance) {
+                food = itemEntity;
+                closedSquaredDistance = distance;
             }
         }
-        return false;
+        return food;
     }
 
     @Override
     public boolean shouldContinue() {
-        return animal.canEat() && targetItemEntity != null;
+        return targetFood != null && isEager(animal);
     }
 
     @Override
     public void tick() {
-        if (targetItemEntity != null && animal.canEat()) {
-            feedAnimal(animal);
-            targetItemEntity = null;
+        if (targetFood != null && !animal.world.isClient && isEager(animal)) {
+            if (!targetFood.getStack().isEmpty()) {
+                //move animal
+                animal.getLookControl().lookAt(targetFood, animal.getLookYawSpeed() + 20, animal.getLookPitchSpeed());
+                animal.getNavigation().startMovingTo(targetFood, speed);
+                //feed!
+                if (animal.squaredDistanceTo(targetFood) < 4.0D) {
+                    animal.getNavigation().stop();
+                    targetFood.getStack().decrement(1);
+                    animal.lovePlayer(null);
+                }
+            }
+            targetFood = null;
         }
-    }
-
-    private void feedAnimal(AnimalEntity mob) {
-        if (!mob.world.isClient
-                && mob.getBreedingAge() == 0
-                && mob.canEat()) {
-            if (eat(targetItemEntity))
-                mob.lovePlayer(null);
-            targetItemEntity = null;
-        }
-    }
-
-    private boolean eat(ItemEntity targetItemEntity) {
-        if (targetItemEntity.getStack().isEmpty()) return false;
-        targetItemEntity.getStack().decrement(1);
-        return true;
     }
 }
