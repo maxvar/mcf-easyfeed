@@ -4,7 +4,18 @@
   "package": "ru.maxvar.mcf.easyfeed.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AnimalEntityMixin"  
+    "BeeEntityMixin",
+    "CatEntityMixin",
+    "ChickenEntityMixin",
+    "CowEntityMixin",
+    "HorseEntityMixin",
+    "LlamaEntityMixin",
+    "OcelotEntityMixin",
+    "PigEntityMixin",
+    "RabbitEntityMixin",
+    "SheepEntityMixin",
+    "TurtleEntityMixin",
+    "WolfEntityMixin"
   ],
   "client": [
   ],
