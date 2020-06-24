@@ -3,7 +3,7 @@
   "id": "mcf-easyfeed",
   "version": "${version}",
   "name": "Easy Feed and Breed",
-  "description": "MaxVar Easy Feed and Breed for fabric - Throw food at animals to feed them and breed them",
+  "description": "Easy Feed and Breed for fabric - Throw food at animals to feed them and breed them",
   "authors": [
     "max@maxvar.ru"
   ],
@@ -23,7 +23,7 @@
     "mcf-easyfeed.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.8.2",
+    "fabricloader": ">=0.8.8",
     "fabric": "*",
     "minecraft": "1.16.x"
   },
