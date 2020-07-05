@@ -15,7 +15,7 @@ Going through Goals code for different animals I found out that Foxes and Pandas
 
 #### Change history
 
-1.3.0 functional parity release for 1.16 + 1.15.2
+1.3.0 functional parity release for 1.16 and 1.15
 
 1.2.0 "attention" range for animals is now equal to the distance it which they notice players, they run that long to the food with the same speed as when tempted by a player
 
