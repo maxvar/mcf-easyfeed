@@ -11,8 +11,8 @@ public class EatTreatsGoal extends Goal {
 
     private final AnimalEntity animal;
     private ItemEntity targetFood;
-    private Double range;
-    private Double speed;
+    private final Double range;
+    private final Double speed;
 
     @SuppressWarnings("unused")
     public EatTreatsGoal(AnimalEntity animal, double range, double speed) {
@@ -36,7 +36,7 @@ public class EatTreatsGoal extends Goal {
 
     private ItemEntity findClosestFood() {
         //find if any suitable food is around
-        List<ItemEntity> entities = animal.world.getEntities(
+        List<ItemEntity> entities = animal.world.getEntitiesByClass(
                 ItemEntity.class, animal.getBoundingBox().expand(range),
                 itemEntity -> animal.isBreedingItem(itemEntity.getStack()));
         ItemEntity food = null;
