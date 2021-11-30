@@ -62,7 +62,7 @@ public class EatTreatsGoal extends Goal {
         if (targetFood != null && !animal.world.isClient && isEager(animal)) {
             if (!targetFood.getStack().isEmpty()) {
                 //move animal
-                animal.getLookControl().lookAt(targetFood, animal.getLookYawSpeed() + 20, animal.getLookPitchSpeed());
+                animal.getLookControl().lookAt(targetFood, animal.getMaxLookYawChange(), animal.getMaxLookPitchChange());
                 animal.getNavigation().startMovingTo(targetFood, speed);
                 //feed!
                 if (animal.squaredDistanceTo(targetFood) < 4.0D) {
