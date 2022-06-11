@@ -21,6 +21,6 @@ public abstract class OcelotEntityMixin extends AnimalEntity {
     @SuppressWarnings("unused")
     @Inject(method = "initGoals", at = @At("TAIL"))
     public void addEatTreatsGoal(CallbackInfo ci) {
-        this.goalSelector.add(2, new EatTreatsGoal(this, 10D, 0.6D));
+        this.goalSelector.add(3, new EatTreatsGoal(this, 10D, 0.6D));
     }
 }

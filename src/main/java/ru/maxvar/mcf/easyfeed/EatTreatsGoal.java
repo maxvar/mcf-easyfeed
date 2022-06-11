@@ -41,13 +41,13 @@ public class EatTreatsGoal extends Goal {
                 itemEntity -> animal.isBreedingItem(itemEntity.getStack()));
         ItemEntity food = null;
         double closedSquaredDistance = range * range;
-            for (ItemEntity itemEntity : entities) {
+        for (ItemEntity itemEntity : entities) {
             //choose the closest suitable stack as target
             double distance = animal.squaredDistanceTo(itemEntity);
             if (distance < closedSquaredDistance) {
                 food = itemEntity;
                 closedSquaredDistance = distance;
-        }
+            }
         }
         return food;
     }
@@ -69,8 +69,8 @@ public class EatTreatsGoal extends Goal {
                     animal.getNavigation().stop();
                     targetFood.getStack().decrement(1);
                     animal.lovePlayer(null);
-        }
-    }
+                }
+            }
             targetFood = null;
         }
     }

@@ -4,11 +4,11 @@
   "package": "ru.maxvar.mcf.easyfeed.mixins",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "AbstractHorseEntityMixin",
     "BeeEntityMixin",
     "CatEntityMixin",
     "ChickenEntityMixin",
     "CowEntityMixin",
-    "HorseEntityMixin",
     "LlamaEntityMixin",
     "OcelotEntityMixin",
     "PigEntityMixin",

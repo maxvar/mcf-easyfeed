@@ -21,6 +21,6 @@ public abstract class PigEntityMixin extends AnimalEntity {
     @SuppressWarnings("unused")
     @Inject(method = "initGoals", at = @At("TAIL"))
     public void addEatTreatsGoal(CallbackInfo ci) {
-        this.goalSelector.add(3, new EatTreatsGoal(this, 6D, 1.2D));
+        this.goalSelector.add(4, new EatTreatsGoal(this, 6D, 1.2D));
     }
 }

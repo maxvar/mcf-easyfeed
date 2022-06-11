@@ -21,6 +21,6 @@ public abstract class BeeEntityMixin extends AnimalEntity {
     @SuppressWarnings("unused")
     @Inject(method = "initGoals", at = @At("TAIL"))
     public void addEatTreatsGoal(CallbackInfo ci) {
-        this.goalSelector.add(2, new EatTreatsGoal(this, 5D, 1.25D));
+        this.goalSelector.add(3, new EatTreatsGoal(this, 10D, 1.25D));
     }
 }
