@@ -27,5 +27,11 @@
     "fabric": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=17"
- }
+  },
+  "custom": {
+    "modmanager": {
+      "modrinth": "8MIih4Vi",
+      "curseforge": 371223
+    }
+  }
 }
