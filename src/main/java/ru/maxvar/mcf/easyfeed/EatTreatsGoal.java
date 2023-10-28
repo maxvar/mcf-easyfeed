@@ -36,7 +36,7 @@ public class EatTreatsGoal extends Goal {
 
     private ItemEntity findClosestFood() {
         //find if any suitable food is around
-        List<ItemEntity> entities = animal.world.getEntitiesByClass(
+        List<ItemEntity> entities = animal.getWorld().getEntitiesByClass(
                 ItemEntity.class, animal.getBoundingBox().expand(range),
                 itemEntity -> animal.isBreedingItem(itemEntity.getStack()));
         ItemEntity food = null;
@@ -59,7 +59,7 @@ public class EatTreatsGoal extends Goal {
 
     @Override
     public void tick() {
-        if (targetFood != null && !animal.world.isClient && isEager(animal)) {
+        if (targetFood != null && !animal.getWorld().isClient && isEager(animal)) {
             if (!targetFood.getStack().isEmpty()) {
                 //move animal
                 animal.getLookControl().lookAt(targetFood, animal.getMaxLookYawChange(), animal.getMaxLookPitchChange());
